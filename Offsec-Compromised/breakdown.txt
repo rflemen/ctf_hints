@@ -18,12 +18,12 @@ What it executes: "(if (test-connection 8.8.8.8 -Quiet) {exit})"
 [string]::join('', ( (105,102,32,40,116,101,115,116,45,99,111,110,110,101,99,116,105,111,110,32,56,46,56,46,56,46,56,32,45,81,117,105,101,116,41,32,123,101,120,105,116,125) |%{ ( [char][int] $_)}))
 
 
-RUN SECOND PART FROM $ms - Tests to see if line 12 is in array and exits if the computer name is Compromised! Second part $DECODE to memory stream (we want this)
+RUN SECOND PART FROM $ms - Tests to see if line 13 (above) is in array and exits if the computer name is Compromised! Second part sends $DECODE variable to memory stream (we want this)
 What it executes: "if ($owned[2].ToString() -ne 'if($env:computername -eq "compromised") {exit}') {exit} Else {$ms = (New-Object System.IO.MemoryStream($Decoded,0,$Decoded.Length))"
 [string]::join('', ( (105,102,32,40,36,111,119,110,101,100,91,50,93,46,84,111,83,116,114,105,110,103,40,41,32,45,110,101,32,39,105,102,40,36,101,110,118,58,99,111,109,112,117,116,101,114,110,97,109,101,32,45,101,113,32,34,99,111,109,112,114,111,109,105,115,101,100,34,41,32,123,101,120,105,116,125,39,41,32,123,101,120,105,116,125,32,69,108,115,101,32,123,36,109,115,32,61,32,40,78,101,119,45,79,98,106,101,99,116,32,83,121,115,116,101,109,46,73,79,46,77,101,109,111,114,121,83,116,114,101,97,109,40,36,68,101,99,111,100,101,100,44,48,44,36,68,101,99,111,100,101,100,46,76,101,110,103,116,104,41,41,125) |%{ ( [char][int] $_)}))
 
 
-RUN THIS - This decodes first part, pipes to Invoke-Expression and then run the second part and sends to screen DECODED Base64
+RUN THIS - This decodes first part, pipes to Invoke-Expression and then runs the second part and sends to screen DECODED Base64 (if you remove the pipe to iex otherwise error will have password in it))
 What it execcutes: "(New-Object System.IO.StreamReader(New-Object System.IO.Compression.GZipStream($ms, [System.IO.Compression.CompressionMode]::Decompress))).readtoend()"
 System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String("KABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBJAE8ALgBTAHQAcgBlAGEAbQBSAGUAYQBkAGUAcgAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAIABTAHkAcwB0AGUAbQAuAEkATwAuAEMAbwBtAHAAcgBlAHMAcwBpAG8AbgAuAEcAWgBpAHAAUwB0AHIAZQBhAG0AKAAkAG0AcwAsACAAWwBTAHkAcwB0AGUAbQAuAEkATwAuAEMAbwBtAHAAcgBlAHMAcwBpAG8AbgAuAEMAbwBtAHAAcgBlAHMAcwBpAG8AbgBNAG8AZABlAF0AOgA6AEQAZQBjAG8AbQBwAHIAZQBzAHMAKQApACkALgByAGUAYQBkAHQAbwBlAG4AZAAoACkA")) | iex
 
